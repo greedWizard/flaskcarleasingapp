@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ concern_title }}</h2>
+    {% for car in cars %}
+        <div>
+            <table>
+                <tr>
+                    <td><img src="{{'/../static/pics/' + car.pic}}" alt=""></td>
+                    <td>
+                        <h3>{{ car.concern.title }} {{ car.model }}</h3>
+
+                        {% if current_user.superuser %}
+
+                        <a href="{{ url_for('cars.update', car_id=car.id) }}">Update</a>
+                        <a href="{{ url_for('cars.delete', car_id=car.id) }}">Delete</a>
+                        {% endif %}
+
+                        <!-- ADD ADMIN VALIDATION -->
+
+                        <hr>
+                        <p>
+                            {% if car.description %}
+                                Description: {{ car.description }}
+                            {% endif %}
+                        </p>
+                        <p> <b>Price: {{ car.price_per_day }} / day</b> </p>
+                        <form action="#">
+                            <input type="submit" value="Lease">
+                        </form>
+                    </td>
+                </tr>
+                <tr> 
+                    
+                </tr>
+            </table>
+        </div>
+    {% endfor %}
+
+{% endblock content %}

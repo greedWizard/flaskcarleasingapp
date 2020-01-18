@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>Lease that car?</h2>
+    
+    <div>
+        <table>
+            <tr>
+                <td><img src="{{'/../static/pics/' + car.pic}}" alt=""></td>
+                <td>
+                    <div>
+                        <h3>{{ car.concern.title }} {{ car.model }}</h3>
+
+                        <hr>
+                        <p>
+                            {% if car.description %}
+                                Description: {{ car.description }}
+                            {% endif %}
+                        </p>
+                        <p> <b>Price: {{ car.price_per_day }} / day</b> </p>
+                        <form action="{{ url_for('leasing.index', car_id=car.id) }}", method="POST">
+                            {{ form.csrf_token }}
+                            {{ form.days_to_rent.label }}:
+                            {{ form.days_to_rent }}
+
+                            {{ form.submit }}
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr> 
+            </tr>
+        </table>
+    </div>
+
+{% endblock content %}

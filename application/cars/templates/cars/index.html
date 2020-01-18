@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if current_user.superuser %}
+
+        <a href="{{ url_for('cars.add') }}">Add Car</a>
+
+    {% endif %}
+
+    {% if cars %}
+        {% for car in cars.items %}
+        <div>
+            <table>
+                <tr>
+                    <td><img src="{{'/../static/pics/' + car.pic}}" alt=""></td>
+                    <td>
+                        <div>
+                            <h3>{{ car.concern.title }} {{ car.model }}</h3>
+
+                            {% if current_user.superuser %}
+
+                                <a href="{{ url_for('cars.update', car_id=car.id) }}">Update</a>
+                                <a href="{{ url_for('cars.delete', car_id=car.id) }}">Delete</a>
+
+                            {% endif %}
+
+                            <hr>
+                            <p>
+                                {% if car.description %}
+                                    Description: {{ car.description }}
+                                {% endif %}
+                            </p>
+                            <p> <b>Price: ${{ car.price_per_day }} / day</b> </p>
+                            <form action="{{ url_for('leasing.index', car_id=car.id) }}">
+                                <input type="submit" value="Lease">
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr> 
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h3>No Cars For Now</h3>
+    {% endif %}
+
+    {% for page_num in cars.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+
+        {% if page_num %}
+            {% if cars.page == page_num %}
+                <a>{{ page_num }}</a>
+            {% else %}
+                <a href="{{ url_for('cars.index', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+
+    {% endfor %}
+
+{% endblock content %}

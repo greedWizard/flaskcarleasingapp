@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>Are you sure you want to remove this car?</h2>
+
+    <div>
+        <table>
+            <tr>
+                <td><img src="{{'/../static/pics/' + car.pic}}" alt=""></td>
+                <td>
+                    <h3>{{ car.concern.title }} {{ car.model }}</h3>
+                    <hr>
+                    <p>Price: {{ car.price_per_day }}</p>
+                    <form action="{{ url_for('cars.delete', car_id=car.id)}}" method="POST">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            <tr> 
+                
+            </tr>
+        </table>
+    </div>
+
+{% endblock content %}

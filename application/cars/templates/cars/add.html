@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <form action="{{ url_for('cars.add') }}" method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+
+        <p>
+            {{ form.concern.label }}
+            {{ form.concern }}
+        </p>
+
+        <p>
+            {{ form.model.label }}
+            {{ form.model(size=16) }}
+        </p>
+
+        <p>
+            {{ form.description.label }}
+            {{ form.description(rows='20', cols='70') }}
+        </p>
+
+        <p>
+            {{ form.price_per_day.label }}
+            {{ form.price_per_day(size=10) }}
+        </p>
+
+        <p>
+            {{ form.pic.label }}
+            {{ form.pic }}
+            {% if form.pic.errors %}
+                {% for error in form.pic.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
+        </p>
+
+        <p>
+            {{ form.submit }}
+        </p>
+    </form>
+
+{% endblock content %}

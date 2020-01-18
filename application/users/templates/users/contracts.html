@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Your Contracts</h2>
+
+
+    {% if user.contracts %}
+        <table border="1">
+            <tr>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Phone Number</td>
+                <td>Car</td>
+                <td>Leasing Date</td>
+                <td>Return Date</td>
+                <td>Actual Return Date</td>
+                <td>Price</td>
+                <td>Outtime penalty</td>
+                <td>Total Price</td>
+                <td>Status</td>
+                <td>
+                    Fullfill
+                </td>
+            </tr>
+            {% for contract in user.contracts %}
+                <tr>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.phone_number }}</td>
+                    <td>{{ contract.car.concern.title }} {{ contract.car.model }} </td>
+                    <td>{{ contract.lease_date.strftime('%Y-%M-%d') }}</td>
+                    <td>{{ contract.return_date.strftime('%Y-%M-%d') }}</td>
+                    
+                    <td>
+                        {% if contract.actual_return_date %}
+                            {{ contract.actual_return_date.strftime('%Y-%M-%d') }}
+                        {% else %}
+                            Not Returned
+                        {% endif %}
+                    </td>
+
+
+                    <td>{{ contract.price }}</td>
+                    <td>
+                        {% if contract.penalty %}
+                            ${{ contract.penalty }}
+                        {% else %}
+                            $0.0
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if contract.total_price %}
+                            ${{ contract.total_price }}
+                        {% else %}
+                            Not Payed
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if contract.actual_return_date %}
+                            Fullfilled
+                        {% else %}
+                            Active
+                        {% endif %}
+                    </td>
+
+                    <td> 
+                        <form action="{{ url_for('leasing.end_contract', contract_id=contract.id) }}">
+                            {% if contract.actual_return_date %}
+                                <input type="submit" value="Fulfilled" disabled>
+                            {% else %}
+                                <input type="submit" value="End Contract">
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        You have no cars rented
+    {% endif %}
+
+{% endblock content %}
