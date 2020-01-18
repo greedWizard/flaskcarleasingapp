@@ -1,5 +1,4 @@
-| FlaskCarLeasing v0.1a Documentation |
-=======================================
+FlaskCarLeasing v0.1b Documentation 
 
 - - - How to start? - - -
 1. Activate the virtual enviroment, that's in the appenv folder.
