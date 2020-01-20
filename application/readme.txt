@@ -29,5 +29,5 @@ To do that just login to your account and click on your username at the top. Fil
 
 
 
-So, that must be it. Just as simple as that, cause it's litterally my first project.
+So, that must be it. Just as simple as that, cause it's literally my first project.
 Created, designed and developed by GreedWizard : https://github.com/greedWizard .
